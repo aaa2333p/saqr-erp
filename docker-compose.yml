@@ -1,20 +1,56 @@
-version: '3'
+version: '3.8'
+
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:6
     ports:
       - '27017:27017'
     volumes:
       - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - saqr-network
 
-  node:
-    image: node:latest
-    working_dir: /usr/src/app
-    volumes:
-      - .:/usr/src/app
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
-    command: 'npm start'
+    depends_on:
+      - mongodb
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      MONGODB_URI: mongodb://root:example@mongodb:27017/saqr-erp?authSource=admin
+      JWT_SECRET: CHANGE_ME_IN_PRODUCTION
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - saqr-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3000'
+    depends_on:
+      - backend
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - saqr-network
+
+networks:
+  saqr-network:
+    driver: bridge
 
 volumes:
   mongodb_data: {}
