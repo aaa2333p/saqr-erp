@@ -1,1 +1,12 @@
-{\n  \"backend\": {\n    \"port\": 3000,\n    \"timeout\": 5000\n  },\n  \"database\": {\n    \"type\": \"postgres\",\n    \"host\": \"localhost\",\n    \"port\": 5432,\n    \"username\": \"user\",\n    \"password\": \"password\",\n    \"database\": \"main\"\n  }\n}
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "cd backend && npm install"
+  },
+  "deploy": {
+    "startCommand": "cd backend && npm start",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  }
+}
