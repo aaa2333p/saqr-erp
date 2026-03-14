@@ -1,19 +1,24 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const mongoURI = 'your_mongodb_connection_string'; // Replace with your MongoDB connection string
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/saqr-erp';
 
 // Middleware
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .catch(err => console.log('MongoDB connection error:', err.message));
 
-// Sample route
+// Routes
+const authRoutes = require('./src/routes/auth');
+app.use('/api/auth', authRoutes);
+
+// Hello World endpoint
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
