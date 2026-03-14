@@ -1,0 +1,1 @@
+{"name":"saqr-erp-backend","version":"1.0.0","description":"Backend for saqr-erp application","main":"index.js","scripts":{"start":"node index.js"},"dependencies":{"express":"^4.17.1","mongoose":"^5.10.9","jsonwebtoken":"^8.5.1","bcryptjs":"^2.4.3"}}
