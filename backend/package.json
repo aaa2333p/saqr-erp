@@ -1,1 +1,17 @@
-{"name":"saqr-erp-backend","version":"1.0.0","description":"Backend for saqr-erp application","main":"index.js","scripts":{"start":"node index.js"},"dependencies":{"express":"^4.17.1","mongoose":"^5.10.9","jsonwebtoken":"^8.5.1","bcryptjs":"^2.4.3"}}
+{
+  "name": "saqr-erp-backend",
+  "version": "1.0.0",
+  "description": "Backend for saqr-erp application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.0"
+  }
+}
